@@ -1,3 +1,5 @@
+/.idea
+/docker/var
 
 ###> symfony/framework-bundle ###
 /.env.local
