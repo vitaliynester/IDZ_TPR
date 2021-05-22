@@ -1,0 +1,23 @@
+name: Автодеплой на тестовый сервер
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  job-one:
+    name: AutoDeploy
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Проверка подключения к серверу по SSH и сборка/запуск контейнеров Docker
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd tpr/IDZ_TPR/
+            git pull origin develop
+            git status
+            docker-compose up -d --build
