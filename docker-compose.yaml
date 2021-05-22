@@ -1,0 +1,36 @@
+version: '3.3'
+services:
+  postgres:
+    container_name: idz_db
+    build: docker/postgres
+    restart: always
+    ports:
+      - '5435:5432'
+    env_file:
+      - ./docker/postgres/db.env
+    volumes:
+      - ./docker/var/lib/postgresql/data:/var/lib/postgresql/data
+
+  php:
+    container_name: idz_site
+    build: docker/php-fpm
+    restart: always
+    volumes:
+      - ./.:/var/www/idz:cached
+      - ./docker/php-fpm/php.ini:/usr/local/etc/php/conf.d/php.ini
+    links:
+      - postgres
+    command: bash -c "cd /var/www/idz && composer install && php-fpm && symfony serve --allow-http --no-tls --port=9000"
+
+  nginx:
+    container_name: idz_nginx
+    build: docker/nginx
+    restart: always
+    ports:
+      - '84:80'
+    links:
+      - php
+    volumes:
+      - ./.:/var/www/idz:cached
+      - ./docker/php-fpm/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./docker/var/logs/nginx/:/var/log/nginx:cached
