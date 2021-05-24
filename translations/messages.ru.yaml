@@ -1,0 +1,8 @@
+Employee: "Сотрудник"
+EmployeeSkills: "Навык сотрудника"
+Skill: "Навык"
+SkillCategory: "Категория навыка"
+TaskSkills: "Навык задачи"
+WorkObject: "Объект для работы"
+WorkTask: "Описание задачи"
+WorkTeam: "Бригада"

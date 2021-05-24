@@ -74,4 +74,9 @@ class EmployeeSkills
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return "$this->skill, с уровнем: $this->skillLevel";
+    }
 }
