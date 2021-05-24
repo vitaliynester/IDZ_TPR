@@ -91,4 +91,9 @@ class TaskSkills
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return "$this->id | $this->skill | $this->skillLevel";
+    }
 }
