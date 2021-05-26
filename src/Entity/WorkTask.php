@@ -45,7 +45,7 @@ class WorkTask
     private $priority;
 
     /**
-     * @ORM\OneToMany(targetEntity=TaskSkills::class, mappedBy="work_task", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=TaskSkills::class, mappedBy="workTask", orphanRemoval=true)
      */
     private $taskSkills;
 
@@ -59,6 +59,11 @@ class WorkTask
      * @ORM\OneToOne(targetEntity=WorkTeam::class, inversedBy="workTask", cascade={"persist", "remove"})
      */
     private $workTeam;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $status;
 
     public function __construct()
     {
@@ -187,5 +192,17 @@ class WorkTask
     public function __toString()
     {
         return $this->title;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }
