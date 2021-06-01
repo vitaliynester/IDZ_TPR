@@ -127,7 +127,7 @@ class WorkTeam
             }
         }
         foreach ($teamSkills as $key => $value) {
-            $teamSkills[$key] /= (array_sum($sumWeights[$key]) + 0.3 * (count($workers) - count($sumWeights[$key])));
+            $teamSkills[$key] /= array_sum($sumWeights[$key]);
         }
 
         return $teamSkills;
