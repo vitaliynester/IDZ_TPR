@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\WorkTask;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,22 +20,17 @@ class WorkTaskRepository extends ServiceEntityRepository
         parent::__construct($registry, WorkTask::class);
     }
 
-    // /**
-    //  * @return WorkTask[] Returns an array of WorkTask objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return WorkTask[] Returns an array of WorkTask objects
+    */
+    public function findAllUncompleted(): Collection
     {
         return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('w.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('w.status != 1')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?WorkTask
