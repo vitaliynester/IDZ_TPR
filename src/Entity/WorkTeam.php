@@ -91,6 +91,48 @@ class WorkTeam
         return $this;
     }
 
+    public function getWorkTeamSkills(): array
+    {
+        $workers  = $this->getWorkers();
+        $teamSkills = [];
+        $sumWeights = [];
+        foreach ($workers as $worker) {
+            foreach ($worker->getSkills() as $skill) {
+                $skillLevel = $skill->getSkillLevel();
+                $skillId = $skill->getSkill()->getId();
+
+                if (!array_key_exists($skillId, $teamSkills)) {
+                    $teamSkills[$skillId] = 0;
+                }
+
+                switch ($skillLevel) {
+                    case ($skillLevel < 3):
+                        $skillWeight = 0.3;
+                        break;
+                    case ($skillLevel >= 3 && $skillLevel < 5):
+                        $skillWeight = 0.5;
+                        break;
+                    case ($skillLevel >= 5 && $skillLevel < 7):
+                        $skillWeight = 1;
+                        break;
+                    case ($skillLevel >= 7):
+                        $skillWeight = 1.5;
+                        break;
+                    default:
+                        $skillWeight = 1;
+                        break;
+                }
+                $sumWeights[$skillId][] = $skillWeight;
+                $teamSkills[$skillId] += $skill->getSkillLevel() * $skillWeight;
+            }
+        }
+        foreach ($teamSkills as $key => $value) {
+            $teamSkills[$key] /= (array_sum($sumWeights[$key]) + 0.3 * (count($workers) - count($sumWeights[$key])));
+        }
+
+        return $teamSkills;
+    }
+
     public function __toString()
     {
         return "$this->id";
