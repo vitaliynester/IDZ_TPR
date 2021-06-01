@@ -151,6 +151,6 @@ class Employee
 
     public function __toString()
     {
-        return "$this->lastName $this->firstName $this->patronymic";
+        return "$this->lastName $this->firstName $this->patronymic | $this->position";
     }
 }
