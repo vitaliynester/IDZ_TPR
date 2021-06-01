@@ -46,5 +46,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Объект над которым работаем', 'fas fa-list', WorkObject::class);
         yield MenuItem::linkToCrud('Задачи', 'fas fa-list', WorkTask::class);
         yield MenuItem::linkToCrud('Команды', 'fas fa-list', WorkTeam::class);
+        yield MenuItem::linkToRoute('Вернуться на главную', 'fa fa-home', 'work_task');
     }
 }
