@@ -23,10 +23,11 @@ class WorkTaskRepository extends ServiceEntityRepository
     /**
     * @return WorkTask[] Returns an array of WorkTask objects
     */
-    public function findAllUncompleted(): Collection
+    public function findAllUncompleted()
     {
         return $this->createQueryBuilder('w')
-            ->andWhere('w.status != 1')
+            ->Where('w.status != :status')
+            ->setParameter('status', 1)
             ->getQuery()
             ->getResult()
         ;
