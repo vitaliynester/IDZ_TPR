@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello WorkTaskController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Задача</th>
+                <th scope="col">Необходимые навыки</th>
+                <th scope="col">Бригада</th>
+                <th scope="col">Навыки бригады</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+                <tr class="table-{{ task.color }}">
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ task.title }}</td>
+                    <td>
+                        <ul>
+                            {%  for skill in task.skills %}
+                                <li>{{ skill.title }}: {{ skill.level }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ task.team }}</td>
+                    <td>
+                        <ul>
+                            {%  for skill in task.teamSkills %}
+                                <li>{{ skill.title }}: {{ skill.level }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
