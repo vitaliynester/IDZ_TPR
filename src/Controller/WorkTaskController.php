@@ -13,7 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class WorkTaskController extends AbstractController
 {
-    #[Route('/work/task_table', name: 'work_task')]
+    /**
+     * @Route("/work/task_table", name="work_task")
+     */
     public function index(WorkTaskRepository $workTaskRepository, SkillRepository $skillRepository): Response
     {
         $data = [];
@@ -72,7 +74,9 @@ class WorkTaskController extends AbstractController
         ]);
     }
 
-    #[Route('/work/task_dist', name: 'work_task_dist')]
+    /**
+     * @Route("/work/task_dist", name="work_task_dist")
+     */
     public function distributeTasks(WorkTaskRepository $workTaskRepository, WorkTeamRepository $workTeamRepository): Response
     {
         $tasks = $workTaskRepository->findAllUncompleted();
