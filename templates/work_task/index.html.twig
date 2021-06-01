@@ -9,6 +9,8 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Задача</th>
+                <th scope="col">Приоритет</th>
+                <th scope="col">Даты</th>
                 <th scope="col">Необходимые навыки</th>
                 <th scope="col">Бригада</th>
                 <th scope="col">Навыки бригады</th>
@@ -19,6 +21,8 @@
                 <tr class="table-{{ task.color }}">
                     <th scope="row">{{ loop.index }}</th>
                     <td>{{ task.title }}</td>
+                    <td>{{ task.priority }}</td>
+                    <td>{{ task.start_date|date('d.m.Y') }} - {{ task.end_date|date('d.m.Y') }}</td>
                     <td>
                         <ul>
                             {%  for skill in task.skills %}

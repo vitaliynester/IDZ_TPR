@@ -24,6 +24,9 @@ class WorkTaskController extends AbstractController
         foreach ($workTasks as $task) {
             $taskId = $task->getId();
             $data[$taskId]['title'] = $task->getTitle();
+            $data[$taskId]['priority'] = $task->getPriority();
+            $data[$taskId]['start_date'] = $task->getStartDate();
+            $data[$taskId]['end_date'] = $task->getEndDate();
 
             if (count($task->getTaskSkills()) != 0) {
                 foreach ($task->getTaskSkills() as $skill) {
@@ -68,6 +71,7 @@ class WorkTaskController extends AbstractController
             }
         }
 
+        usort($data, array($this, 'tableDataCmp'));
         return $this->render('work_task/index.html.twig', [
             'controller_name' => 'WorkTaskController',
             'tasks' => $data,
@@ -133,6 +137,21 @@ class WorkTaskController extends AbstractController
         }
         else {
             return $task1->getPriority() < $task2->getPriority() ? 1 : -1;
+        }
+    }
+
+    private function tableDataCmp($task1, $task2)
+    {
+        if ($task1['priority'] == $task2['priority']) {
+            if ($task1['end_date'] == $task2['end_date']) {
+                return 0;
+            }
+            else {
+                return $task1['end_date'] > $task2['end_date'] ? 1 : -1;
+            }
+        }
+        else {
+            return $task1['priority'] < $task2['priority'] ? 1 : -1;
         }
     }
 
