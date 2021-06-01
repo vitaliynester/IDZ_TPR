@@ -29,7 +29,7 @@ class WorkTaskCrudController extends AbstractCrudController
             DateTimeField::new('start_date', 'Дата начала задачи')->setRequired(true)->setFormat('yyyy-mm-dd HH:mm')->renderAsChoice(),
             DateTimeField::new('end_date', 'Дата окончания задачи')->setRequired(true)->setFormat('yyyy-mm-dd HH:mm')->renderAsChoice(),
             IntegerField::new('priority','Приоритет задачи')->setRequired(true),
-            AssociationField::new('workTeam', 'Выполняющая бригада'),
+            AssociationField::new('workTeam', 'Выполняющая бригада')->onlyWhenUpdating(),
             ChoiceField::new('status', 'Статус выполнения')->setChoices(['Выполнена' => 1, 'В работе' => 2, 'Нет исполнителя' => 3])->setRequired(true),
         ];
     }
