@@ -49,7 +49,7 @@
                         var resName = value.team === -1 ? '' : `Бригада ${value.team}`;
                         var startDate = new Date(value.start_date.date.split(' ')[0].replaceAll('-', '/')).toLocaleDateString("en-US");
                         var endDate = new Date(value.end_date.date.split(' ')[0].replaceAll('-', '/')).toLocaleDateString("en-US");
-                        g.AddTaskItem(new JSGantt.TaskItem(key, value.title, startDate, endDate, 'ff0000', url, 0, resName, 0, 0, 0, 0, 0, ''));
+                        g.AddTaskItem(new JSGantt.TaskItem(key, value.title, startDate, endDate, value.color, url, 0, resName, 0, 0, 0, 0, 0, ''));
                     }
                     break;
                 case 2:
@@ -60,7 +60,7 @@
                         var resName = value.task;
                         var startDate = new Date(value.start_date.date.split(' ')[0].replaceAll('-', '/')).toLocaleDateString("en-US");
                         var endDate = new Date(value.end_date.date.split(' ')[0].replaceAll('-', '/')).toLocaleDateString("en-US");
-                        g.AddTaskItem(new JSGantt.TaskItem(key, value.title, startDate, endDate, 'ff0000', url, 0, resName, 0, 0, 0, 0, 0, ''));
+                        g.AddTaskItem(new JSGantt.TaskItem(key, value.title, startDate, endDate, value.color, url, 0, resName, 0, 0, 0, 0, 0, ''));
                     }
                     break;
             }
