@@ -103,6 +103,7 @@ class GanttChartController extends AbstractController
             $data[$taskId]['start_date'] = $task->getStartDate();
             $data[$taskId]['end_date'] = $task->getEndDate();
             $data[$taskId]['team'] = $task->getWorkTeam() ? $task->getWorkTeam()->getId() : -1;
+            $data[$taskId]['color'] = $task->getStatus() == 1 ? '32CD32' : ($task->getStatus() == 2 ? 'FFFF00' : '8B0000');
         }
 
         return $this->render('gantt_chart/index.html.twig', [
