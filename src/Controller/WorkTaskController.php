@@ -19,7 +19,7 @@ class WorkTaskController extends AbstractController
     public function index(WorkTaskRepository $workTaskRepository, SkillRepository $skillRepository): Response
     {
         $data = [];
-        $workTasks = $workTaskRepository->findAll();
+        $workTasks = $workTaskRepository->findAllUncompleted();
 
         foreach ($workTasks as $task) {
             $taskId = $task->getId();

@@ -27,12 +27,6 @@ class Skill
      */
     private $description;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=SkillCategory::class, inversedBy="skills")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $skillCategory;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -58,18 +52,6 @@ class Skill
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getSkillCategory(): ?SkillCategory
-    {
-        return $this->skillCategory;
-    }
-
-    public function setSkillCategory(?SkillCategory $skillCategory): self
-    {
-        $this->skillCategory = $skillCategory;
 
         return $this;
     }

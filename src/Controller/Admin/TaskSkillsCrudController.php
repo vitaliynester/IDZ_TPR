@@ -23,7 +23,6 @@ class TaskSkillsCrudController extends AbstractCrudController
             AssociationField::new('workTask', 'Задача над которой работаем')->setRequired(true),
             AssociationField::new('skill', 'Необходимый навык')->setRequired(true),
             IntegerField::new('skillLevel', 'Уровень владения')->setRequired(true),
-            BooleanField::new('isRequired', 'Необходим ли данный навык'),
         ];
     }
 }

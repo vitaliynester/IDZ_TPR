@@ -23,11 +23,6 @@ class TaskSkills
     private $skillLevel;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isRequired;
-
-    /**
      * @ORM\ManyToOne(targetEntity=WorkTask::class, inversedBy="taskSkills")
      * @ORM\JoinColumn(nullable=false)
      */

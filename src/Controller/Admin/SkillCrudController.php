@@ -20,7 +20,6 @@ class SkillCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            AssociationField::new('skillCategory', 'Категория навыка')->setRequired(true),
             TextField::new('name', 'Название навыка')->setRequired(true),
             TextField::new('description', 'Описание навыка'),
         ];

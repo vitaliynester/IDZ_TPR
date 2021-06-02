@@ -25,9 +25,9 @@ class WorkTeam
     private $workers;
 
     /**
-     * @ORM\OneToOne(targetEntity=WorkTask::class, mappedBy="workTeam", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=WorkTask::class, mappedBy="workTeam")
      */
-    private $workTask;
+    private $workTasks;
 
     public function __construct()
     {
@@ -69,24 +69,32 @@ class WorkTeam
         return $this;
     }
 
-    public function getWorkTask(): ?WorkTask
+    /**
+     * @return Collection|WorkTask[]
+     */
+    public function getWorkTasks(): Collection
     {
-        return $this->workTask;
+        return $this->workTasks;
     }
 
-    public function setWorkTask(?WorkTask $workTask): self
+    public function addWorkTask(WorkTask $workTask): self
     {
-        // unset the owning side of the relation if necessary
-        if ($workTask === null && $this->workTask !== null) {
-            $this->workTask->setWorkTeam(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($workTask !== null && $workTask->getWorkTeam() !== $this) {
+        if (!$this->workTasks->contains($workTask)) {
+            $this->workTasks[] = $workTask;
             $workTask->setWorkTeam($this);
         }
 
-        $this->workTask = $workTask;
+        return $this;
+    }
+
+    public function removeWorkTask(WorkTask $workTask): self
+    {
+        if ($this->workTasks->removeElement($workTask)) {
+            // set the owning side to null (unless already changed)
+            if ($workTask->getWorkTeam() === $this) {
+                $workTask->setWorkTeam(null);
+            }
+        }
 
         return $this;
     }

@@ -50,13 +50,13 @@ class WorkTask
     private $taskSkills;
 
     /**
-     * @ORM\ManyToOne(targetEntity=WorkObject::class, inversedBy="workTask")
+     * @ORM\ManyToOne(targetEntity=WorkObject::class, inversedBy="workTasks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $workObject;
 
     /**
-     * @ORM\OneToOne(targetEntity=WorkTeam::class, inversedBy="workTask", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=WorkTeam::class, inversedBy="workTasks")
      */
     private $workTeam;
 
