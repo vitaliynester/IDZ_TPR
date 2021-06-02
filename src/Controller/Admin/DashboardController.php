@@ -41,7 +41,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Сотрудники', 'fas fa-list', Employee::class);
         yield MenuItem::linkToCrud('Навыки сотрудника', 'fas fa-list', EmployeeSkills::class);
         yield MenuItem::linkToCrud('Навыки', 'fas fa-list', Skill::class);
-        yield MenuItem::linkToCrud('Категория навыков', 'fas fa-list', SkillCategory::class);
         yield MenuItem::linkToCrud('Навыки необходимые для задачи', 'fas fa-list', TaskSkills::class);
         yield MenuItem::linkToCrud('Объект над которым работаем', 'fas fa-list', WorkObject::class);
         yield MenuItem::linkToCrud('Задачи', 'fas fa-list', WorkTask::class);

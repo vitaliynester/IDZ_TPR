@@ -19,7 +19,7 @@ class WorkTeamCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             AssociationField::new('workers', 'Работники'),
-            AssociationField::new('workTask', 'Задача'),
+            AssociationField::new('workTasks', 'Задача'),
         ];
     }
 }
