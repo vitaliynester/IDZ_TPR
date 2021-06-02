@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ controller_name }}{% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('style/jsgantt.css') }}"/>
+    <div class="container">
+        <div class="text-center">
+            <div class="row-md-6 mt-2">
+                <a class="badge badge-pill badge-success text-decoration-none" href="{{ path('gantt_chart_tasks') }}">
+                    <button type="button" class="btn btn-info">
+                        Отчет по задачам
+                    </button>
+                </a>
+                <a class="badge badge-pill badge-success text-decoration-none" href="{{ path('gantt_chart_team') }}">
+                    <button type="button" class="btn btn-info">
+                        Отчет по бригадам
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <div style="position:relative;" class="gantt mt-4" id="GanttChartDIV"></div>
+        </div>
+    </div>
+    <script src="{{ asset('js/jsgantt.js') }}"></script>
+    <script>
+        var data = JSON.parse('{{ data | json_encode | raw }}');
+        console.log(data);
+
+        var g = new JSGantt.GanttChart('g', document.getElementById('GanttChartDIV'), 'day');
+        g.setShowRes(1); // Show/Hide Responsible (0/1)
+        g.setShowDur(1); // Show/Hide Duration (0/1)
+        g.setShowComp(0); // Show/Hide % Complete(0/1)
+        g.setCaptionType('Resource');  // Set to Show Caption
+        g.setDateDisplayFormat('mm/dd/yyyy');
+        g.setDateInputFormat('mm/dd/yyyy');
+        g.setFormatArr("day", "week", "month");
+
+        if (g) {
+            switch (data.type) {
+                case 0:
+                case 1:
+                    for (const [key, value] of Object.entries(data)) {
+                        if (typeof value === "number") break;
+                        var url = value.team !== -1 ? "{{ path("gantt_chart_per_team", {'id': 'team_id'}) }}" : "#";
+                        url = url.replace("team_id", value.team);
+                        var resName = value.team === -1 ? '' : `Бригада ${value.team}`;
+                        var startDate = new Date(value.start_date.date.split(' ')[0].replaceAll('-', '/')).toLocaleDateString("en-US");
+                        var endDate = new Date(value.end_date.date.split(' ')[0].replaceAll('-', '/')).toLocaleDateString("en-US");
+                        g.AddTaskItem(new JSGantt.TaskItem(key, value.title, startDate, endDate, 'ff0000', url, 0, resName, 0, 0, 0, 0, 0, ''));
+                    }
+                    break;
+                case 2:
+                    for (const [key, value] of Object.entries(data)) {
+                        if (typeof value === "number") break;
+                        var url = value.team !== -1 ? "{{ path("gantt_chart_per_team", {'id': 'team_id'}) }}" : "#";
+                        url = url.replace("team_id", value.title.split(' ')[1]);
+                        var resName = value.task;
+                        var startDate = new Date(value.start_date.date.split(' ')[0].replaceAll('-', '/')).toLocaleDateString("en-US");
+                        var endDate = new Date(value.end_date.date.split(' ')[0].replaceAll('-', '/')).toLocaleDateString("en-US");
+                        g.AddTaskItem(new JSGantt.TaskItem(key, value.title, startDate, endDate, 'ff0000', url, 0, resName, 0, 0, 0, 0, 0, ''));
+                    }
+                    break;
+            }
+
+            g.Draw();
+            g.DrawDependencies();
+
+        }
+
+    </script>
+{% endblock %}
