@@ -72,7 +72,7 @@ class WorkTeam
     /**
      * @return Collection|WorkTask[]
      */
-    public function getWorkTasks(): Collection
+    public function getWorkTasks()
     {
         return $this->workTasks;
     }
