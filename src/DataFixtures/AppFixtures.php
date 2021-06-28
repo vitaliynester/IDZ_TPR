@@ -19,7 +19,7 @@ class AppFixtures extends Fixture
     {
         // Создаем сотрудников
         $employeeList = [];
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 100; $i++) {
             $employee = new Employee();
             $employee->setLastName('Сотрудник');
             $employee->setFirstName("$i");
@@ -111,16 +111,16 @@ class AppFixtures extends Fixture
         // Создаем бригады
         $globalCountEmployee = 0;
         $currentCountEmployee = 0;
-        for ($i = 1; $i <= 15 || $globalCountEmployee <= count($employeeList); $i++) {
+        for ($i = 1; $i <= 15 && $globalCountEmployee <= count($employeeList); $i++) {
             $workTeam = new WorkTeam();
             $employeeInTeam = rand(2, 5);
 
-            for (; ($currentCountEmployee < $globalCountEmployee || $currentCountEmployee < $employeeInTeam) && $currentCountEmployee < count($employeeList); $currentCountEmployee++) {
+            $globalCountEmployee += $employeeInTeam;
+            for (; ($currentCountEmployee < $globalCountEmployee) && $currentCountEmployee < count($employeeList); $currentCountEmployee++) {
                 $workTeam->addWorker($employeeList[$currentCountEmployee]);
             }
             $manager->persist($workTeam);
 
-            $globalCountEmployee += $employeeInTeam;
         }
 
         $manager->flush();
